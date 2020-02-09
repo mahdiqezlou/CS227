@@ -106,9 +106,9 @@ if __name__ == '__main__':
 
 
     ## it is up to you to figure out if these examples return the right values
-    studentquery1,studentquery2,_ = runstudent()
-    print(studentquery1)
-    print(studentquery2)
+#    studentquery1,studentquery2,_ = runstudent()
+#    print(studentquery1)
+#    print(studentquery2)
 
 ## you should probably write your own tests, as we will be testing your
 ## code on different factorsets as well!
