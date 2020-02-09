@@ -78,7 +78,65 @@ def buildstudentex():
 
     # remove line below when you write your code
     # it is okay just to "hard code" all of the values in here
-    pass
+    
+    ## Defining variables
+    d = discretevariable("d", 2)
+    i = discretevariable("i", 2)
+    g = discretevariable("g", 3)
+    s = discretevariable("s", 2)
+    l = discretevariable("l", 2)
+    
+    ## Hard coding the facotrs
+    ## I guess the order of defenition matters or may not check the result of student test
+
+    phi_d = discretefactor({d})
+    phi_d[{d:0}] = 0.6
+    phi_d[{d:1}] = 0.4
+
+    phi_i = discretefactor({i})
+    phi_i[{i:0}] = 0.7
+    phi_i[{i:1}] = 0.3
+
+    phi_d_i_g = discretefactor({d,i,g})
+    phi_d_i_g[{d:0,i:0,g:0}] = 0.3
+    phi_d_i_g[{d:0,i:0,g:1}] = 0.4
+    phi_d_i_g[{d:0,i:0,g:2}] = 0.3
+    phi_d_i_g[{d:1,i:0,g:0}] = 0.05
+    phi_d_i_g[{d:1,i:0,g:1}] = 0.25
+    phi_d_i_g[{d:1,i:0,g:2}] = 0.7
+    phi_d_i_g[{d:0,i:1,g:0}] = 0.9
+    phi_d_i_g[{d:0,i:1,g:1}] = 0.08
+    phi_d_i_g[{d:0,i:1,g:2}] = 0.02
+    phi_d_i_g[{d:1,i:1,g:0}] = 0.5
+    phi_d_i_g[{d:1,i:1,g:1}] = 0.3
+    phi_d_i_g[{d:1,i:1,g:2}] = 0.2
+
+    phi_i_s = discretefactor({i,s})
+    phi_i_s[{i:0,s:0}] = 0.95
+    phi_i_s[{i:0,s:1}] = 0.05
+    phi_i_s[{i:1,s:0}] = 0.2
+    phi_i_s[{i:1,s:1}] = 0.8
+
+    phi_g_l = discretefactor({g,l})
+    phi_g_l[{g:0,l:0}] = 0.1
+    phi_g_l[{g:0,l:1}] = 0.9
+    phi_g_l[{g:1,l:0}] = 0.4
+    phi_g_l[{g:1,l:1}] = 0.6
+    phi_g_l[{g:2,l:0}] = 0.99
+    phi_g_l[{g:2,l:1}] = 0.01
+
+    studentbn = factorset()
+    studentbn.addfactor(phi_d)
+    studentbn.addfactor(phi_i)
+    studentbn.addfactor(phi_d_i_g)
+    studentbn.addfactor(phi_i_s)
+    studentbn.addfactor(phi_g_l)
+
+    return studentbn, (d,i,g,s,l)
+
+
+
+
     # will need to return your factorset (studentbn below) as the 
     # variables in the order d,i,g,s,l (as below)
     # return studentbn,(d,i,g,s,l)
@@ -106,9 +164,9 @@ if __name__ == '__main__':
 
 
     ## it is up to you to figure out if these examples return the right values
-#    studentquery1,studentquery2,_ = runstudent()
-#    print(studentquery1)
-#    print(studentquery2)
+    studentquery1,studentquery2,_ = runstudent()
+    print(studentquery1)
+    print(studentquery2)
 
 ## you should probably write your own tests, as we will be testing your
 ## code on different factorsets as well!
