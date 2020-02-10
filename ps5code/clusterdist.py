@@ -44,4 +44,32 @@ class clusterdist:
     #  evidence is introduced)
     def treecalibrate(self):
         ### For you to write (along with any helper methods you wish)
-        pass
+        while
+        for i in len(self._U.clusters):
+            for j in self._U._adj:
+                if getmu(i,j) == 1:
+                    _BU_Message(i,j)
+
+        retutn self._beta         
+            
+
+
+    def _BU_Message(self, i, j):
+
+        #i sending clique
+        #j receibing clique
+        if i<j :
+            sigma_i_j = self.beta[i].marginalize(self._U.clusters[i] - S_i_j)
+            self._beta[j] = self._beta[j] * (sigma_i_j / getmu(i,j))
+            self._mu[(i, j)] = sigma_i_j
+
+        else :
+
+            reverse
+
+
+
+
+            
+
+
