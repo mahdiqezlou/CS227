@@ -42,30 +42,56 @@ class clusterdist:
     # (not necessarily a tree, despite the name -- it might be
     #  multiple disconnected trees -- this happens often once
     #  evidence is introduced)
+    
+    ## From here is just for trees
     def treecalibrate(self):
-        ### For you to write (along with any helper methods you wish)
-        while
-        for i in len(self._U.clusters):
-            for j in self._U._adj:
-                if getmu(i,j) == 1:
-                    _BU_Message(i,j)
+        """ Find the ready clusters. While there exist some un informed clusters,
+        keep beleif update the uninfomed edjes (having mu of 1)"""
+        
+        ## get the ready clusters and edjes to pass messgae through
+        r_Cs, ed_j = self._ready_Cs()
+        while len(r_Cs) != 0:
+            for i in r_Cs:
+                self._BU_Message(r_Cs, ed_j)
+            r_Cs, ed_j = self._ready_Cs()
+          
+    def _ready_Cs(self):
+        """ Find ready Clusters : Those have only one uninformed edje (mu = 1) """
+        # enumerate over all clusters and get each one's neighbors
+        for i,a in enumerate(self._U._adj) :
+            r_Cs = []
+            ed_j = []
+            num_non_ready_mess = 0
+            # enumerate on edjes for every cluster
+            for j in a:
+                if self.getmu(i, j) == 1:
+                    num_non_ready_mess += 1
+                    # non-ready neighbor index
+                    non_ready_neib = j
+            if num_non_ready_mess == 1:
+                r_Cs.append(i)
+                ed_j.append(non_ready_neib)
 
-        retutn self._beta         
-            
-
+        return (r_Cs, ed_j)
 
     def _BU_Message(self, i, j):
+        """Belief update the clusters i and j
+        i is sending clique
+        j is receiving clique
+        """
+        sigma_i_j = self._beta[i].marginalize(self._U.clusters[i].vars - self._sep_set(i,j))
+        self._beta[j] = self._beta[j] * (sigma_i_j / self.getmu(i,j))
+        self._mu[(i, j)] = sigma_i_j
 
-        #i sending clique
-        #j receibing clique
-        if i<j :
-            sigma_i_j = self.beta[i].marginalize(self._U.clusters[i] - S_i_j)
-            self._beta[j] = self._beta[j] * (sigma_i_j / getmu(i,j))
-            self._mu[(i, j)] = sigma_i_j
+    def _sep_set(self, i, j):
+        """ Get the separating set between clusters i and j
+        It is just the common set between varaibles of factors in cluster i and cluster j
+        """
 
-        else :
+        return self._U.Clusters.vars[i] & self._U.clusters.vars[j]
 
-            reverse
+
+
 
 
 

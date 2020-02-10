@@ -3,7 +3,7 @@ from clusterdist import *
 from factor import *
 from factorset import *
 from itertools import product
-from veinf import *
+#from veinf import *
 
 def makefactor(vars,vals):
     phi = discretefactor(set(vars))
