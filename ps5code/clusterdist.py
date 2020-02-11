@@ -64,6 +64,8 @@ class clusterdist:
             num_non_ready_mess = 0
             # enumerate on edjes for every cluster
             for j in a:
+                ## This comparison below is wrong. I need to get the 
+                #values of the factor
                 if self.getmu(i, j) == 1:
                     num_non_ready_mess += 1
                     # non-ready neighbor index
